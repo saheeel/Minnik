@@ -108,14 +108,14 @@
                         </span>
                     </div>
                 </a>
-                <div class="menu-icon cursor-pointer">
+                <!-- <div class="menu-icon cursor-pointer">
                     <span class="icon ti-align-right"></span>
                 </div>
-            </div>
+            </div> -->
         </div>
     </nav>
 
-    <div class="hamenu">
+    <!-- <div class="hamenu">
         <div class="close-menu cursor-pointer ti-close"></div>
         <div class="container-fluid rest d-flex">
             <div class="menu-links">
@@ -189,7 +189,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- ==================== End Navbar ==================== -->
 
@@ -235,22 +235,89 @@
                 <!-- ==================== Start Intro ==================== -->
 
                 <section class="intro-ma section-padding">
-                    <div class="container">
-                        <div class="sec-head">
-                            <div class="row">
-                                <div class="col-lg-5 sub-head md-mb15">
-                                    <h6 class="text-u fz-14 ls1">the blend of simplicity and innovation</h6>
-                                </div>
-                                <div class="col-lg-7">
-                                    <h3><span class="sub-color">Welcome to Minnik</span> — yWe craft cutting-edge digital solutions 
-                                        tailored to your business needs. Whether it's website development, SEO, cloud systems, 
-                                        or custom software, we turn ideas into reality. Let’s build something amazing together!</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+    <div class="container">
+        <div class="sec-head">
+            <div class="row">
+                <div class="col-lg-5 sub-head md-mb15">
+                    <h6 class="text-u fz-14 ls1" id="fadeText1">
+                        The blend of simplicity and innovation
+                    </h6>
+                </div>
+                <div class="col-lg-7">
+                    <h3 id="fadeText2">
+                        <span class="sub-color">Welcome to Minnik</span> — We craft cutting-edge digital solutions 
+                        tailored to your business needs. Whether it's website development, SEO, cloud systems, 
+                        or custom software, we turn ideas into reality. Let’s build something amazing together!
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
+<style>
+    /* Ensures text wraps properly and fades letter by letter */
+    .intro-ma h3, .intro-ma h6 {
+        display: block;
+        word-break: break-word; /* Allows words to wrap naturally */
+    }
+
+    /* Letter fade effect */
+    .intro-ma h3 span, .intro-ma h6 span {
+        color: rgba(255, 255, 255, 0.2); /* Starts dark gray */
+        transition: color 0.2s ease-out; /* Faster fade effect */
+        display: inline-flex; /* Allows natural word wrapping */
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function wrapLettersInWords(element) {
+            let words = element.innerText.split(" ");
+            element.innerHTML = words.map(word => {
+                let letters = word.split("").map(letter => `<span>${letter}</span>`).join("");
+                return `<span style="white-space: nowrap;">${letters}&nbsp;</span>`; // Wraps each word but allows natural line breaks
+            }).join("");
+        }
+
+        // Apply letter wrapping with word integrity
+        const text1 = document.getElementById("fadeText1");
+        const text2 = document.getElementById("fadeText2");
+        wrapLettersInWords(text1);
+        wrapLettersInWords(text2);
+
+        const spans1 = text1.querySelectorAll("span span");
+        const spans2 = text2.querySelectorAll("span span");
+
+        function fadeLetters() {
+            let section = document.querySelector(".intro-ma");
+            let sectionTop = section.getBoundingClientRect().top;
+            let windowHeight = window.innerHeight;
+
+            let startFadeThreshold = 0.25; // Section should be 25% visible before fading starts
+            let progress = Math.min(1, Math.max(0, (1 - sectionTop / (windowHeight * (1 - startFadeThreshold))))); 
+
+            if (sectionTop > windowHeight * (1 - startFadeThreshold)) {
+                progress = 0; // Delay the effect if section is too high
+            }
+
+            function updateText(spans) {
+                spans.forEach((span, index) => {
+                    let fadeFactor = Math.min(1, Math.max(0, (progress * spans.length - index) * 0.2)); 
+                    span.style.color = `rgba(255, 255, 255, ${0.2 + fadeFactor * 0.8})`;
+                });
+            }
+
+            updateText(spans1);
+            updateText(spans2);
+        }
+
+        window.addEventListener("scroll", fadeLetters);
+        fadeLetters(); // Run once on load in case it's already in view
+    });
+</script>
+
+                
                 <!-- ==================== End Intro ==================== -->
 
 
@@ -286,7 +353,7 @@
                             </div>
                             <div class="text ml-auto">
                                 <div class="d-flex align-items-center">
-                                    <p>Brand Identity, Stragegy & Consult, <br> Position, Rebrand</p>
+                                    <p>Crafting intuitive and engaging interfaces for websites and apps.</p>
                                     <div>
                                         <div class="icon invert">
                                             <img src="../common/imgs/icons/code-solid.svg" alt="">
@@ -301,7 +368,7 @@
                             </div>
                             <div class="text ml-auto">
                                 <div class="d-flex align-items-center">
-                                    <p>Brand Identity, Stragegy & Consult, <br> Position, Rebrand</p>
+                                    <p>Building responsive and user-friendly websites with effective SEO strategies.</p>
                                     <div>
                                         <div class="icon invert">
                                             <img src="../common/imgs/icons/bezier-curve-solid.svg" alt="">
@@ -313,11 +380,11 @@
                         
                         <div class="item d-flex align-items-center">
                             <div class="title">
-                                <h2>Growth</h2>
+                                <h2>SEO Optimization</h2>
                             </div>
                             <div class="text ml-auto">
                                 <div class="d-flex align-items-center">
-                                    <p>Brand Identity, Stragegy & Consult, <br> Position, Rebrand</p>
+                                    <p>Enhancing your website's visibility on search engines to attract more traffic.</p>
                                     <div>
                                         <div class="icon invert">
                                             <img src="../common/imgs/icons/chart-line-solid.svg" alt="">
@@ -335,47 +402,53 @@
 
                 <!-- ==================== Start marquee ==================== -->
 
-                <div class="marq-mp section-padding">
+                <!-- <div class="marq-mp section-padding">
                     <div class="main-marq color-bg shadow-off">
                         <div class="slide-har st1">
                             <div class="box">
                                 <div class="item">
-                                    <h5>Top-notch Experts</h5>
+                                    <h5>Website Development</h5>
                                 </div>
                                 <div class="item">
-                                    <h5>Dedicated Support 24/7</h5>
+                                    <h5>Mobile App Development</h5>
                                 </div>
                                 <div class="item">
-                                    <h5>Flexible Pricing</h5>
+                                    <h5>Scalable Cloud Systems</h5>
                                 </div>
                                 <div class="item">
-                                    <h5>Top-notch Experts</h5>
+                                    <h5>Custom Software Development</h5>
                                 </div>
                                 <div class="item">
-                                    <h5>AI-Driven Solutions</h5>
+                                    <h5>SEO Optimization</h5>
                                 </div>
                                 <div class="item">
-                                    <h5>Flexiable Price</h5>
+                                    <h5>Smart Automation & AI</h5>
+                                </div>
+                                <div class="item">
+                                    <h5>Innovative Tech Solutions</h5>
+                                </div>
+                                <div class="item">
+                                    <h5>Performance-Optimized Apps</h5>
                                 </div>
                             </div>
                             <div class="box">
                                 <div class="item">
-                                    <h5>Top-notch Experts</h5>
+                                    <h5>E-Commerce Solutions</h5>
                                 </div>
                                 <div class="item">
-                                    <h5>Dedicated Support 24/7</h5>
+                                    <h5>Seamless User Experience</h5>
                                 </div>
                                 <div class="item">
-                                    <h5>Flexible Pricing</h5>
+                                    <h5>Data-Driven Strategies</h5>
                                 </div>
                                 <div class="item">
-                                    <h5>Top-notch Experts</h5>
+                                    <h5>Cutting-Edge AI Integration</h5>
                                 </div>
                                 <div class="item">
-                                    <h5>AI-Driven Solutions</h5>
+                                    <h5>End-to-End Product Development</h5>
                                 </div>
                                 <div class="item">
-                                    <h5>Flexiable Price</h5>
+                                    <h5>Optimized SEO & Digital Growth</h5>
                                 </div>
                             </div>
                         </div>
@@ -384,214 +457,319 @@
                         <div class="slide-har st2">
                             <div class="box">
                                 <div class="item">
-                                    <h5>Top-notch Experts</h5>
+                                    <h5>Future-Ready Solutions</h5>
                                 </div>
                                 <div class="item">
-                                    <h5>Dedicated Support 24/7</h5>
+                                    <h5>Enterprise-Grade Security</h5>
                                 </div>
                                 <div class="item">
-                                    <h5>Flexible Pricing</h5>
+                                    <h5>UI/UX Design</h5>
                                 </div>
                                 <div class="item">
-                                    <h5>Top-notch Experts</h5>
+                                    <h5>AI-Driven Business Insights</h5>
                                 </div>
                                 <div class="item">
-                                    <h5>AI-Driven Solutions</h5>
+                                    <h5>High-Performance Digital Marketing</h5>
                                 </div>
                                 <div class="item">
-                                    <h5>Flexiable Price</h5>
+                                    <h5>Scalable Cloud Infrastructure</h5>
                                 </div>
-                            </div>
-                            <div class="box">
+                            
                                 <div class="item">
-                                    <h5>Top-notch Experts</h5>
-                                </div>
-                                <div class="item">
-                                    <h5>Dedicated Support 24/7</h5>
+                                    <h5>Custom Software for Business Growth</h5>
                                 </div>
                                 <div class="item">
-                                    <h5>Flexible Pricing</h5>
+                                    <h5>Advanced Data Analytics</h5>
                                 </div>
                                 <div class="item">
-                                    <h5>Top-notch Experts</h5>
+                                    <h5>Seamless API Integrations</h5>
                                 </div>
                                 <div class="item">
-                                    <h5>AI-Driven Solutions</h5>
+                                    <h5>Next-Gen App Development</h5>
                                 </div>
                                 <div class="item">
-                                    <h5>Flexiable Price</h5>
+                                    <h5>Optimized Web & App Performance</h5>
+                                </div>
+                                <div class="item">
+                                    <h5>24/7 Dedicated Support</h5>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                 -->
 
                 <!-- ==================== End marquee ==================== -->
 
 
 
-                <!-- ==================== Start Portfolio ==================== -->
-
-                <section class="works-ma section-padding pt-0">
-                    <div class="container">
-                        <div class="sec-head mb-70">
-                            <div class="row">
-                                <div class="col-lg-5">
-                                    <h6 class="sub-head md-mb15">Featured Works</h6>
-                                </div>
-                                <div class="col-lg-7">
-                                    <h4>Our user-centered design encourages
-                                        <span class="sub-color inline">productivity & boosts revenue.</span>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container-fluid">
-                        <div class="gallery-img">
-                            <div class="swiper-container">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="bg-img" data-background="assets/imgs/works/1.jpg">
-                                            <a href="../inner_pages/project-details.html"></a>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="bg-img" data-background="assets/imgs/works/2.jpg">
-                                            <a href="../inner_pages/project-details.html"></a>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="bg-img" data-background="assets/imgs/works/3.jpg">
-                                            <a href="../inner_pages/project-details.html"></a>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="bg-img" data-background="assets/imgs/works/5.jpg">
-                                            <a href="../inner_pages/project-details.html"></a>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="bg-img" data-background="assets/imgs/works/7.jpg">
-                                            <a href="../inner_pages/project-details.html"></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="gallery-text">
-                            <div class="swiper-container">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <div class="text">
-                                            <h4>Avocado Cutter</h4>
-                                            <h6>
-                                                <span>Digital Design</span>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="text">
-                                            <h4>The joy of music</h4>
-                                            <h6>
-                                                <span>Branding</span>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="text">
-                                            <h4>Bank Rebranding</h4>
-                                            <h6>
-                                                <span>Branding</span>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="text">
-                                            <h4>Carved Wood</h4>
-                                            <h6>
-                                                <span>Product Design</span>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="text">
-                                            <h4>Blom Air purifier</h4>
-                                            <h6>
-                                                <span>Digital Art</span>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-controls">
-                            <div class="swiper-button-next swiper-nav-ctrl cursor-pointer">
-                                <div>
-                                    <span>Next Slide</span>
-                                </div>
-                                <div><i class="fas fa-chevron-right"></i></div>
-                            </div>
-                            <div class="swiper-button-prev swiper-nav-ctrl cursor-pointer">
-                                <div><i class="fas fa-chevron-left"></i></div>
-                                <div>
-                                    <span>Prev Slide</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-pagination"></div>
-                    </div>
-                </section>
-
+                
                 <!-- ==================== End Portfolio ==================== -->
 
 
 
                 <!-- ==================== Start clients ==================== -->
-
                 <section class="clients-ds section-padding">
                     <div class="container">
                         <div class="sec-head mb-70">
-                            <h6 class="sub-head">partner with +150 brands</h6>
+                            <h6 class="sub-head">Technologies we use</h6>
                         </div>
-                        <div class="row sm-marg">
-                            <div class="col-lg col-md-4 col-6 md-mb30">
+                        <div class="logo-carousel-container" id="logo-carousel-container">
+                            <div class="logo-carousel" id="logo-carousel">
+                                <!-- Original logos a1-a4 -->
                                 <div class="item d-flex align-items-center justify-content-center">
                                     <div class="img">
-                                        <img src="assets/imgs/clients/1.svg" alt="">
+                                        <img src="assets/imgs/icons/a1.svg" alt="">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg col-md-4 col-6 md-mb30">
                                 <div class="item d-flex align-items-center justify-content-center">
                                     <div class="img">
-                                        <img src="assets/imgs/clients/2.svg" alt="">
+                                        <img src="assets/imgs/icons/a2.svg" alt="">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg col-md-4 col-6 md-mb30">
                                 <div class="item d-flex align-items-center justify-content-center">
                                     <div class="img">
-                                        <img src="assets/imgs/clients/3.svg" alt="">
+                                        <img src="assets/imgs/icons/a3.svg" alt="">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg col-md-4 col-6 sm-mb30">
                                 <div class="item d-flex align-items-center justify-content-center">
                                     <div class="img">
-                                        <img src="assets/imgs/clients/4.svg" alt="">
+                                        <img src="assets/imgs/icons/a4.svg" alt="">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg col-md-4 col-6">
+                                
+                                <!-- Additional logos a5-a20 -->
                                 <div class="item d-flex align-items-center justify-content-center">
                                     <div class="img">
-                                        <img src="assets/imgs/clients/5.svg" alt="">
+                                        <img src="assets/imgs/icons/a5.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center justify-content-center">
+                                    <div class="img">
+                                        <img src="assets/imgs/icons/a6.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center justify-content-center">
+                                    <div class="img">
+                                        <img src="assets/imgs/icons/a7.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center justify-content-center">
+                                    <div class="img">
+                                        <img src="assets/imgs/icons/a8.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center justify-content-center">
+                                    <div class="img">
+                                        <img src="assets/imgs/icons/a9.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center justify-content-center">
+                                    <div class="img">
+                                        <img src="assets/imgs/icons/a10.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center justify-content-center">
+                                    <div class="img">
+                                        <img src="assets/imgs/icons/a11.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center justify-content-center">
+                                    <div class="img">
+                                        <img src="assets/imgs/icons/a12.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center justify-content-center">
+                                    <div class="img">
+                                        <img src="assets/imgs/icons/a13.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center justify-content-center">
+                                    <div class="img">
+                                        <img src="assets/imgs/icons/a14.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center justify-content-center">
+                                    <div class="img">
+                                        <img src="assets/imgs/icons/a15.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center justify-content-center">
+                                    <div class="img">
+                                        <img src="assets/imgs/icons/a16.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center justify-content-center">
+                                    <div class="img">
+                                        <img src="assets/imgs/icons/a17.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center justify-content-center">
+                                    <div class="img">
+                                        <img src="assets/imgs/icons/a18.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center justify-content-center">
+                                    <div class="img">
+                                        <img src="assets/imgs/icons/a19.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center justify-content-center">
+                                    <div class="img">
+                                        <img src="assets/imgs/icons/a20.svg" alt="">
+                                    </div>
+                                </div>
+                                
+                                <!-- Duplicating first few logos to ensure smooth looping -->
+                                <div class="item d-flex align-items-center justify-content-center">
+                                    <div class="img">
+                                        <img src="assets/imgs/icons/a1.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center justify-content-center">
+                                    <div class="img">
+                                        <img src="assets/imgs/icons/a2.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center justify-content-center">
+                                    <div class="img">
+                                        <img src="assets/imgs/icons/a3.svg" alt="">
+                                    </div>
+                                </div>
+                                <div class="item d-flex align-items-center justify-content-center">
+                                    <div class="img">
+                                        <img src="assets/imgs/icons/a4.svg" alt="">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                
+                    <style>
+                        .logo-carousel-container {
+                            width: 100%;
+                            overflow: hidden;
+                            position: relative;
+                            cursor: grab;
+                            user-select: none;
+                        }
+                        
+                        .logo-carousel {
+                            display: flex;
+                            animation: scroll 60s linear infinite;
+                            width: fit-content;
+                        }
+                        
+                        .logo-carousel .item {
+                            min-width: 200px;
+                            padding: 0 20px;
+                            border: none;
+                        }
+                        
+                        .logo-carousel .img {
+                            width: 100%;
+                            height: auto;
+                        }
+                        
+                        @keyframes scroll {
+                            0% {
+                                transform: translateX(0);
+                            }
+                            100% {
+                                transform: translateX(-50%);
+                            }
+                        }
+                        
+                        .logo-carousel-container:active {
+                            cursor: grabbing;
+                        }
+                        
+                        .dragging .logo-carousel {
+                            animation: none;
+                        }
+                    </style>
+                
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const container = document.getElementById('logo-carousel-container');
+                        const carousel = document.getElementById('logo-carousel');
+                        
+                        let isDown = false;
+                        let startX;
+                        let scrollLeft;
+                        
+                        // Get the current transform value from the auto-scrolling animation
+                        function getTranslateX() {
+                            const style = window.getComputedStyle(carousel);
+                            const matrix = new DOMMatrix(style.transform);
+                            return matrix.m41; // This is the translateX value
+                        }
+                        
+                        container.addEventListener('mousedown', (e) => {
+                            isDown = true;
+                            container.classList.add('dragging');
+                            startX = e.pageX;
+                            scrollLeft = getTranslateX();
+                        });
+                        
+                        container.addEventListener('mouseleave', () => {
+                            isDown = false;
+                            container.classList.remove('dragging');
+                            resetAnimation();
+                        });
+                        
+                        container.addEventListener('mouseup', () => {
+                            isDown = false;
+                            container.classList.remove('dragging');
+                            resetAnimation();
+                        });
+                        
+                        container.addEventListener('mousemove', (e) => {
+                            if (!isDown) return;
+                            e.preventDefault();
+                            const x = e.pageX;
+                            const walk = (x - startX); // Scroll speed
+                            carousel.style.transform = `translateX(${scrollLeft + walk}px)`;
+                        });
+                        
+                        // Touch events for mobile
+                        container.addEventListener('touchstart', (e) => {
+                            isDown = true;
+                            container.classList.add('dragging');
+                            startX = e.touches[0].pageX;
+                            scrollLeft = getTranslateX();
+                        });
+                        
+                        container.addEventListener('touchend', () => {
+                            isDown = false;
+                            container.classList.remove('dragging');
+                            resetAnimation();
+                        });
+                        
+                        container.addEventListener('touchmove', (e) => {
+                            if (!isDown) return;
+                            const x = e.touches[0].pageX;
+                            const walk = (x - startX);
+                            carousel.style.transform = `translateX(${scrollLeft + walk}px)`;
+                        });
+                        
+                        function resetAnimation() {
+                            // Remove inline transform to let the CSS animation take over again
+                            setTimeout(() => {
+                                carousel.style.transition = 'none';
+                                carousel.style.transform = '';
+                                
+                                // Force reflow to apply changes
+                                void carousel.offsetWidth;
+                                
+                                // Remove the transition so it doesn't flash
+                                setTimeout(() => {
+                                    carousel.style.transition = '';
+                                }, 50);
+                            }, 50);
+                        }
+                    });
+                    </script>
                 </section>
 
                 <!-- ==================== End clients ==================== -->
@@ -600,7 +778,7 @@
 
                 <!-- ==================== Start Testimonials ==================== -->
 
-                <section class="testimonials-ds">
+                <!-- <section class="testimonials-ds">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-5">
@@ -688,14 +866,14 @@
                             </div>
                         </div>
                     </div>
-                </section>
+                </section> -->
 
                 <!-- ==================== End Testimonials ==================== -->
 
 
 
                 <!-- ==================== Start Awards ==================== -->
-
+<!-- 
                 <section class="awards-sa section-padding pt-0">
                     <div class="container">
                         <div class="row">
@@ -785,7 +963,7 @@
                             </div>
                         </div>
                     </div>
-                </section>
+                </section> -->
 
                 <!-- ==================== End Awards ==================== -->
 
@@ -829,7 +1007,7 @@
 
                 <!-- ==================== Start Blogs ==================== -->
 
-                <section class="blog-ds section-padding">
+                <!-- <section class="blog-ds section-padding">
                     <div class="container">
                         <div class="sec-head mb-70 d-flex align-items-center">
                             <div>
@@ -915,7 +1093,7 @@
                             </div>
                         </div>
                     </div>
-                </section>
+                </section> -->
 
                 <!-- ==================== End Blogs ==================== -->
 
@@ -949,21 +1127,15 @@
                                     <div class="col-md-6">
                                         <div class="item mb-60">
                                             <h6>Work Inquiry</h6>
-                                            <p>contact@hubfolio.agency</p>
-                                            <p>+0685689696</p>
+                                            <p>hr@minnik.io</p>
+                                            <p>+919999999999</p>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="item mb-60">
-                                            <h6>Open Position</h6>
-                                            <p>Senior Front-end Wordpress Developer</p>
-                                            <p>UI/UX Designer (Remote)</p>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="col-md-6">
                                         <div class="item sm-mb60">
-                                            <h6>Mahattan, NY</h6>
-                                            <p>152 Thatcher Road St, Mahattan NY 10463 United States</p>
+                                            <h6>Hyderabad</h6>
+                                            <p>Behind Domino's Pizza, RTX Roads, Hyderabad</p>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -985,20 +1157,18 @@
                                 <div class="copy d-flex align-items-center md-mb30">
                                     <div>
                                         <div class="logo">
-                                            <img src="assets/imgs/Logo-f.svg" alt="">
+                                            <img src="assets/imgs/minniklogo.png" alt="">
                                         </div>
                                     </div>
                                     <div class="ml-50">
-                                        <p>© 2024 <a href="#0">Hubfolio Agency</a>. <br> All Right Reserved</p>
+                                        <p>© 2025 <a href="#0">Minnik IT Solutions</a>. <br> All Right Reserved</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 d-flex justify-content-end">
                                 <div class="links sub-color d-flex justify-content-between">
                                     <a href="#" class="active">Home</a>
-                                    <a href="../inner_pages/portfolio-standard.html">Works</a>
-                                    <a href="../inner_pages/about.html">Studio</a>
-                                    <a href="../inner_pages/blog-standard.html">News</a>
+                                    
                                 </div>
                             </div>
                         </div>
